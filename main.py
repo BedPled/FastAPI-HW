@@ -52,14 +52,14 @@ post_db = [
 
 # 2. Реализован путь / – 1 балл
 @app.get('/', summary='Root')
-async def root():
+def root():
     # ваш код здесь
     return Response(status_code=200)
 
 
 # 3. Реализован путь /post – 1 балла
 @app.post('/post', summary='Get Post')
-async def post(item: Dog) -> Dog:
+def post(item: Dog) -> Dog:
     return item
 
 
@@ -73,19 +73,19 @@ def post_dog(name: str, kind: DogType):
 
 # 5. Реализовано получение списка собак – 1 балл
 @app.get('/dog', summary='Get All Dogs')
-async def get_dogs():
+def get_dogs():
     return [dogs_db[i] for i in dogs_db]
 
 
 # 6. Реализовано получение собаки по id – 1 балл
 @app.get('/dog/{pk}', summary='Get dog by ID')
-async def get_dog_by_id(pk: int) -> Dog:
+def get_dog_by_id(pk: int) -> Dog:
     return dogs_db[pk]
 
 
 # 7. Реализовано получение собак по типу – 1 балл
 @app.get('/dog/', summary='Get dog by type')
-async def get_dog_by_type(kind: DogType) -> list[Dog]:
+def get_dog_by_type(kind: DogType) -> list[Dog]:
     return [dogs_db[i] for i in dogs_db if dogs_db[i].kind == kind]
 
 

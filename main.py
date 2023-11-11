@@ -52,20 +52,20 @@ post_db = [
 
 # 2. Реализован путь / – 1 балл
 @app.get('/', summary='Root')
-def root():
+async def root():
     # ваш код здесь
     return Response(status_code=200)
 
 
 # 3. Реализован путь /post – 1 балла
 @app.post('/post', summary='Get Post')
-def post(item: Dog) -> Dog:
+async def post(item: Dog) -> Dog:
     return item
 
 
 # 4. Реализована запись собак – 1 балл
 @app.post('/dog/add', summary='Add Dog')
-def post_dog(name: str, kind: DogType):
+async def post_dog(name: str, kind: DogType):
     pk = len(dogs_db)
     dogs_db.update({pk: Dog(name=name, pk=pk, kind=kind)})
     return Response(status_code=200)
@@ -73,24 +73,24 @@ def post_dog(name: str, kind: DogType):
 
 # 5. Реализовано получение списка собак – 1 балл
 @app.get('/dog', summary='Get All Dogs')
-def get_dogs():
+async def get_dogs():
     return [dogs_db[i] for i in dogs_db]
 
 
 # 6. Реализовано получение собаки по id – 1 балл
 @app.get('/dog/{pk}', summary='Get dog by ID')
-def get_dog_by_id(pk: int) -> Dog:
+async def get_dog_by_id(pk: int) -> Dog:
     return dogs_db[pk]
 
 
 # 7. Реализовано получение собак по типу – 1 балл
 @app.get('/dog/', summary='Get dog by type')
-def get_dog_by_type(kind: DogType) -> list[Dog]:
+async def get_dog_by_type(kind: DogType):
     return [dogs_db[i] for i in dogs_db if dogs_db[i].kind == kind]
 
 
 # 8. Реализовано обновление собаки по id – 1 балл
 @app.patch('/dog/{pk}', summary='Update Dog')
-def get_dog_by_type(pk: int, name: str, kind: DogType):
+async def get_dog_by_type(pk: int, name: str, kind: DogType):
     dogs_db.update({pk: Dog(name=name, pk=pk, kind=kind)})
     return Response(status_code=200)

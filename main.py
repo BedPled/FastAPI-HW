@@ -59,7 +59,7 @@ async def root():
 
 # 3. Реализован путь /post – 1 балла
 @app.post('/post', summary='Get Post')
-async def post(item: Dog) -> Dog:
+async def post(item: Timestamp) -> Timestamp:
     return item
 
 
@@ -91,6 +91,9 @@ async def get_dog_by_type(kind: DogType):
 
 # 8. Реализовано обновление собаки по id – 1 балл
 @app.patch('/dog/{pk}', summary='Update Dog')
-async def get_dog_by_type(pk: int, name: str, kind: DogType):
-    dogs_db.update({pk: Dog(name=name, pk=pk, kind=kind)})
+async def get_dog_by_type(pk: int, name: str = None, kind: DogType = None):
+
+    dogs_db.update({pk: Dog(name=name if name is not None else dogs_db[pk].name,
+                            pk=pk,
+                            kind=kind if kind is not None else dogs_db[pk].kind)})
     return Response(status_code=200)

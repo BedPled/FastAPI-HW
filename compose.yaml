@@ -14,8 +14,9 @@ services:
     ports:
       - 8000:8000
 
-  telegram-bot-service:
-    image: your-telegram-bot-image:latest
+  bot:
+    build:
+      context: .
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
 
